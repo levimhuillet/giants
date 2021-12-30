@@ -5,25 +5,6 @@ using UnityEngine;
 
 namespace Giants {
     public class SwipeDetector : MonoBehaviour {
-        /*
-        private bool m_tap, m_swipeLeft, m_swipeRight, m_swipeUp, m_swipeDown;
-        private Vector2 m_startTouch, m_swipeDelta;
-
-        public bool Tap { get { return m_tap; } }
-        public bool SwipeLeft { get { return m_swipeLeft; } }
-        public bool SwipeRight { get { return m_swipeRight; } }
-        public bool SwipeUp { get { return m_swipeUp; } }
-        public bool SwipeDown { get { return m_swipeDown; } }
-
-        private void Update() {
-            m_tap = m_swipeLeft = m_swipeRight = m_swipeUp = m_swipeDown = false;
-        }
-
-        private void Reset() {
-            m_startTouch = m_swipeDelta = Vector2.zero;
-        }
-        */
-
         private Vector2 m_fingerDownPosition;
         private Vector2 m_fingerUpPosition;
 
