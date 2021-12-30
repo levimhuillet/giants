@@ -138,4 +138,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 2
-  m_vanishSpeed: 0.125
+  m_vanishSpeed: 0.15
