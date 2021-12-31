@@ -36,11 +36,13 @@ namespace Giants {
 
             EventManager.OnPause.AddListener(HandleOnPause);
             EventManager.OnResume.AddListener(HandleEndPause);
+            EventManager.OnRestart.AddListener(HandleOnRestart);
+            EventManager.OnReturnMain.AddListener(HandleOnReturnMain);
         }
 
         private void Update() {
             if (GameManager.instance.IsPaused) {
-                return; 
+                return;
             }
 
             // move closer to camera
@@ -66,6 +68,20 @@ namespace Giants {
         private void HandleEndPause() {
             // resume animation
             m_animator.speed = 1;
+        }
+
+        private void HandleOnRestart() {
+            HandleEndPause();
+            ResetPosition();
+        }
+
+        private void HandleOnReturnMain() {
+            ResetPosition();
+        }
+
+        private void ResetPosition() {
+            // reset Giant to prevent triggering GameOver
+            this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         }
     }
 }

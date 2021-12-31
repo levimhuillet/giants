@@ -27,6 +27,7 @@ namespace Giants {
 
             EventManager.OnPause.AddListener(HandleOnPause);
             EventManager.OnResume.AddListener(HandleEndPause);
+            EventManager.OnRestart.AddListener(HandleEndPause);
         }
 
         public int GetCatchDistance() {

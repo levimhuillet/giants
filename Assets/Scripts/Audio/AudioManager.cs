@@ -53,7 +53,10 @@ namespace Giants {
 
             // EventManager Subscriptions
             EventManager.OnPause.AddListener(PauseAudio);
+            EventManager.OnGameOver.AddListener(StopAudio);
             EventManager.OnResume.AddListener(UnPauseAudio);
+            EventManager.OnRestart.AddListener(HandleRestart);
+            EventManager.OnReturnMain.AddListener(StopAudio);
         }
 
         private void Update() {
@@ -147,5 +150,9 @@ namespace Giants {
         }
 
         #endregion
+
+        private void HandleRestart() {
+            PlayAudio("giants", true);
+        }
     }
 }

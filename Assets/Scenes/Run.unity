@@ -1281,6 +1281,8 @@ MonoBehaviour:
   m_objectPrefab: {fileID: 6322084815481739430, guid: 8882fc292af35e94eb310f9681531983,
     type: 3}
   m_focalPoint: {fileID: 1025407909}
+  m_minSpawnTime: 3
+  m_maxSpawnTime: 6
   m_spawnedObjs: []
 --- !u!4 &677511724
 Transform:
@@ -1653,6 +1655,8 @@ MonoBehaviour:
   m_objectPrefab: {fileID: 6322084815481739430, guid: 8882fc292af35e94eb310f9681531983,
     type: 3}
   m_focalPoint: {fileID: 923491573}
+  m_minSpawnTime: 3
+  m_maxSpawnTime: 6
   m_spawnedObjs: []
 --- !u!1 &1173728469
 GameObject:

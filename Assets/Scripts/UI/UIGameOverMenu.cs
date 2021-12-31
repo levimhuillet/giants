@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Giants {
@@ -23,11 +24,15 @@ namespace Giants {
         }
 
         private void HandleRunAgain() {
+            SceneManager.LoadScene("Run");
 
+            EventManager.OnRestart.Invoke();
         }
 
         private void HandleReturnMain() {
+            SceneManager.LoadScene("MainMenu");
 
+            EventManager.OnReturnMain.Invoke();
         }
     }
 }

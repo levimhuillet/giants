@@ -32,8 +32,6 @@ namespace Giants {
 
         private void HandleOnGameOver() {
             m_gameOverMenu.SetActive(true);
-
-            EventManager.OnPause.Invoke();
         }
     }
 }

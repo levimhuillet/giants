@@ -24,17 +24,40 @@ namespace Giants {
             m_isPaused = false;
 
             EventManager.OnPause.AddListener(HandleOnPause);
-            EventManager.OnResume.AddListener(HandleEndPause);
+            EventManager.OnResume.AddListener(HandleOnResume);
+            EventManager.OnGameOver.AddListener(HandleOnGameOver);
+            EventManager.OnRestart.AddListener(HandleOnRestart);
+            EventManager.OnReturnMain.AddListener(HandleOnReturnMain);
         }
 
         #endregion
 
-        private void HandleOnPause() {
+        private void BeginPause() {
             m_isPaused = true;
         }
 
-        private void HandleEndPause() {
+        private void EndPause() {
             m_isPaused = false;
+        }
+
+        private void HandleOnPause() {
+            BeginPause();
+        }
+
+        private void HandleOnGameOver() {
+            BeginPause();
+        }
+
+        private void HandleOnResume() {
+            EndPause();
+        }
+
+        private void HandleOnRestart() {
+            EndPause();
+        }
+
+        private void HandleOnReturnMain() {
+            EndPause();
         }
     }
 }
