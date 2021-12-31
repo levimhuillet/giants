@@ -33,9 +33,16 @@ namespace Giants {
                 m_gapBetweenGiants *= -1;
             }
             m_moveInwardRatio = (this.transform.position.x - m_gapBetweenGiants) / m_playerCatchDistance;
+
+            EventManager.OnPause.AddListener(HandleOnPause);
+            EventManager.OnResume.AddListener(HandleEndPause);
         }
 
         private void Update() {
+            if (GameManager.instance.IsPaused) {
+                return; 
+            }
+
             // move closer to camera
             Vector3 currPos = this.transform.position;
             Vector3 newPos = currPos + new Vector3(m_moveInwardRatio, 0, -m_speed) * Time.deltaTime;
@@ -47,8 +54,18 @@ namespace Giants {
             //this.transform.localScale = new Vector3(currMag, currMag, 1);
 
             if (this.transform.position.z <= m_playerCatchDistance) {
-                Debug.Log("Caught!");
+                EventManager.OnGameOver.Invoke();
             }
+        }
+
+        private void HandleOnPause() {
+            // pause animation
+            m_animator.speed = 0;
+        }
+
+        private void HandleEndPause() {
+            // resume animation
+            m_animator.speed = 1;
         }
     }
 }

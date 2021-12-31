@@ -50,6 +50,10 @@ namespace Giants {
 
             m_audioSrc = this.GetComponent<AudioSource>();
             m_audioQueue = new Queue<AudioLoopPair>();
+
+            // EventManager Subscriptions
+            EventManager.OnPause.AddListener(PauseAudio);
+            EventManager.OnResume.AddListener(UnPauseAudio);
         }
 
         private void Update() {

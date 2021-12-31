@@ -9,6 +9,9 @@ namespace Giants {
         private Vector2 m_fingerUpPosition;
 
         [SerializeField]
+        private ObjectGenerator m_leftGenerator, m_rightGenerator;
+
+        [SerializeField]
         private bool m_detectSwipeOnlyAfterRelease = false;
 
         [SerializeField]
@@ -17,6 +20,10 @@ namespace Giants {
         public static event Action<SwipeData> OnSwipe = delegate { };
 
         private void Update() {
+            if (GameManager.instance.IsPaused) {
+                return;
+            }
+
             foreach (Touch touch in Input.touches) {
                 if (touch.phase == TouchPhase.Began) {
                     m_fingerUpPosition = touch.position;
@@ -96,7 +103,14 @@ namespace Giants {
         }
 
         private void HandleOnSwipe(SwipeData data) {
-            Debug.Log("Swipe detected in direction " + data.Dir);
+            if (data.StartPosition.x > Screen.width / 2 && data.Dir == SwipeDir.Left) {
+                // right half
+                m_rightGenerator.ThrowWallObject();
+            }
+            else if ((data.StartPosition.x <= Screen.width / 2 && data.Dir == SwipeDir.Right)) {
+                // left half
+                m_leftGenerator.ThrowWallObject();
+            }
         }
 
         #endregion
