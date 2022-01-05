@@ -9,9 +9,6 @@ namespace Giants {
 
         private Animator m_animator;
 
-        [SerializeField]
-        private int m_catchDistance;
-
         private void OnEnable() {
             if (instance == null) {
                 instance = this;
@@ -23,15 +20,15 @@ namespace Giants {
 
             m_animator = this.GetComponent<Animator>();
 
-            m_catchDistance *= -1; // camera is oriented backwards
-
             EventManager.OnPause.AddListener(HandleOnPause);
             EventManager.OnResume.AddListener(HandleEndPause);
             EventManager.OnRestart.AddListener(HandleEndPause);
         }
 
-        public int GetCatchDistance() {
-            return m_catchDistance;
+        private void OnDestroy() {
+            EventManager.OnPause.RemoveListener(HandleOnPause);
+            EventManager.OnResume.RemoveListener(HandleEndPause);
+            EventManager.OnRestart.RemoveListener(HandleEndPause);
         }
 
         private void HandleOnPause() {

@@ -41,9 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Giant
-    uniqueID: 4274268633
-    locked: 0
-  - name: Player
-    uniqueID: 3050346939
+  - name: Running
+    uniqueID: 3755678793
     locked: 0

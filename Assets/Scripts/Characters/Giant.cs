@@ -13,12 +13,25 @@ namespace Giants {
         private float m_speed;
         [SerializeField]
         private float m_magRate;
-        [SerializeField]
-        private float m_gapBetweenGiants;
+
+        public struct Track {
+            public Vector3 StartPos;
+            public Vector3 FinalPos;
+            public Vector3 MoveVector;
+
+            public Track(Vector3 start, Vector3 final) {
+                StartPos = start;
+                FinalPos = final;
+                MoveVector = FinalPos - StartPos;
+            }
+        }
+
+        private Track m_track;
 
         private float m_startScale;
         private int m_playerCatchDistance;
         private float m_moveInwardRatio;
+        private float m_gapOffset;
 
         private void OnEnable() {
             m_animator = this.GetComponent<Animator>();
@@ -27,17 +40,32 @@ namespace Giants {
 
             m_startScale = this.transform.localScale.x;
 
-            m_playerCatchDistance = Player.instance.GetCatchDistance();
+            m_playerCatchDistance = RunManager.instance.GetPlayerCatchDistance();
+
+            m_gapOffset = RunManager.instance.GetGapBetweenGiants();
 
             if (this.transform.position.x < 0) {
-                m_gapBetweenGiants *= -1;
+                m_gapOffset *= -1;
             }
-            m_moveInwardRatio = (this.transform.position.x - m_gapBetweenGiants) / m_playerCatchDistance;
+
+            Vector3 startPos = this.transform.position;
+            Vector3 finalPos = new Vector3(m_gapOffset, this.transform.position.y, m_playerCatchDistance);
+
+            m_track = new Track(startPos, finalPos);
+
+            m_moveInwardRatio = (this.transform.position.x - m_gapOffset) / m_playerCatchDistance;
 
             EventManager.OnPause.AddListener(HandleOnPause);
             EventManager.OnResume.AddListener(HandleEndPause);
             EventManager.OnRestart.AddListener(HandleOnRestart);
             EventManager.OnReturnMain.AddListener(HandleOnReturnMain);
+        }
+
+        private void OnDestroy() {
+            EventManager.OnPause.RemoveListener(HandleOnPause);
+            EventManager.OnResume.RemoveListener(HandleEndPause);
+            EventManager.OnRestart.RemoveListener(HandleOnRestart);
+            EventManager.OnReturnMain.RemoveListener(HandleOnReturnMain);
         }
 
         private void Update() {
@@ -81,7 +109,11 @@ namespace Giants {
 
         private void ResetPosition() {
             // reset Giant to prevent triggering GameOver
-            this.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            this.transform.position = m_track.StartPos;
+        }
+
+        public Track GetTrack() {
+            return m_track;
         }
     }
 }

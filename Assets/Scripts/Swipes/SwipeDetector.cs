@@ -102,6 +102,10 @@ namespace Giants {
             OnSwipe += HandleOnSwipe;
         }
 
+        private void OnDestroy() {
+            OnSwipe -= HandleOnSwipe;
+        }
+
         private void HandleOnSwipe(SwipeData data) {
             if (data.StartPosition.x > Screen.width / 2 && data.Dir == SwipeDir.Left) {
                 // right half
