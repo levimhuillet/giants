@@ -115,5 +115,12 @@ namespace Giants {
         public Track GetTrack() {
             return m_track;
         }
+
+        public void KnockBack(float knockBackDistance) {
+            Vector3 currPos = this.transform.position;
+            Vector3 newPos = currPos - m_track.MoveVector.normalized * knockBackDistance;
+
+            this.transform.position = newPos;
+        }
     }
 }

@@ -93,7 +93,7 @@ namespace Giants {
             objToThrow.SetDir(-RunManager.instance.GetGiantDir(m_pos));
 
             // scale obj accordingly
-
+            objToThrow.transform.localScale -= new Vector3(0.08f, 0.08f, .08f);
         }
 
         private float GetObjRelativeProgress(GameObject objToThrow) {
