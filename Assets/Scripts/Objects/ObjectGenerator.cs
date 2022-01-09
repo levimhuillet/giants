@@ -72,12 +72,13 @@ namespace Giants {
             if (count > 0) {
                 WallObject objToThrow = m_spawnedObjs[count - 1]; // most recent obj
 
-                ConvertPosRelativeToGiant(objToThrow);
-                objToThrow.MarkThrown();
+                float relProg = GetObjRelativeProgress(objToThrow.gameObject);
+                if (relProg <= RunManager.instance.GetMaxProgToThrow()) {
+                    ConvertPosRelativeToGiant(objToThrow);
+                    objToThrow.MarkThrown();
 
-                m_spawnedObjs.Remove(objToThrow);
-
-                // Destroy(objToThrow);
+                    m_spawnedObjs.Remove(objToThrow);
+                }
             }
         }
 
@@ -92,8 +93,14 @@ namespace Giants {
             objToThrow.transform.position = throwLocation;
             objToThrow.SetDir(-RunManager.instance.GetGiantDir(m_pos));
 
+            float scaleConst = 0.7f;
+
             // scale obj accordingly
-            objToThrow.transform.localScale -= new Vector3(0.08f, 0.08f, .08f);
+            objToThrow.transform.localScale = new Vector3(
+                objToThrow.transform.localScale.x * scaleConst,
+                objToThrow.transform.localScale.y * scaleConst,
+                objToThrow.transform.localScale.z * scaleConst
+                );
         }
 
         private float GetObjRelativeProgress(GameObject objToThrow) {

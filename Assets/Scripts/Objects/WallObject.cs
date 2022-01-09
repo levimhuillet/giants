@@ -11,8 +11,13 @@ namespace Giants {
         private float m_vanishSpeed;
         [SerializeField]
         private float m_knockBackDistance;
+        [SerializeField]
+        private float m_stunTime;
+        [SerializeField]
+        private float m_hangDuration; // how long the object is in the air
 
         private Vector3 m_dir;
+        private float m_hangTimer;
 
         public bool Thrown {
             get;
@@ -25,6 +30,11 @@ namespace Giants {
             }
 
             if (Thrown) {
+                m_hangTimer -= Time.deltaTime;
+                if (m_hangTimer <= 0) {
+                    Destroy(this.gameObject);
+                }
+
                 this.transform.position = this.transform.position + m_dir * m_speed * Time.deltaTime;
                 this.transform.localScale -= new Vector3(m_vanishSpeed, m_vanishSpeed, m_vanishSpeed) * Time.deltaTime;
 
@@ -43,7 +53,7 @@ namespace Giants {
             Giant giant = other.gameObject.GetComponent<Giant>();
             if (giant != null) {
                 // knock giant backwards
-                giant.KnockBack(m_knockBackDistance);
+                giant.KnockBack(m_knockBackDistance, m_stunTime);
 
                 // remove this object
                 Destroy(this.gameObject);
@@ -62,6 +72,8 @@ namespace Giants {
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             sr.sortingLayerName = "Running";
             sr.sortingOrder = 0;
+
+            m_hangTimer = m_hangDuration;
         }
     }
 }

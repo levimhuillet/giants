@@ -48,6 +48,8 @@ MonoBehaviour:
   m_speed: 2
   m_vanishSpeed: 0.04
   m_knockBackDistance: 3
+  m_stunTime: 1
+  m_hangDuration: 1.5
 --- !u!212 &636297713047943981
 SpriteRenderer:
   m_ObjectHideFlags: 0

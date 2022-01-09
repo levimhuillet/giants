@@ -574,6 +574,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GiantRight
       objectReference: {fileID: 0}
+    - target: {fileID: 2424002654509679773, guid: a6ef67724d916994d8aa5bb1147c8993,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2424002654509679774, guid: a6ef67724d916994d8aa5bb1147c8993,
         type: 3}
       propertyPath: m_RootOrder
@@ -783,6 +788,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GiantLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424002654509679773, guid: a6ef67724d916994d8aa5bb1147c8993,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2424002654509679774, guid: a6ef67724d916994d8aa5bb1147c8993,
         type: 3}
@@ -1309,6 +1319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerCatchDistance: 19
   m_gapBetweenGiants: 0.5
+  m_maxProgressToThrow: 0.9
   m_leftGiant: {fileID: 205402595}
   m_rightGiant: {fileID: 191704810}
 --- !u!4 &542121067

@@ -7,9 +7,11 @@ namespace Giants {
         public static RunManager instance;
 
         [SerializeField]
-        private int m_playerCatchDistance;
+        private int m_playerCatchDistance = 19;
         [SerializeField]
         private float m_gapBetweenGiants = 0.5f;
+        [SerializeField]
+        private float m_maxProgressToThrow = 0.9f;
         [SerializeField]
         private Giant m_leftGiant;
         [SerializeField]
@@ -32,6 +34,10 @@ namespace Giants {
 
         public float GetGapBetweenGiants() {
             return m_gapBetweenGiants;
+        }
+
+        public float GetMaxProgToThrow() {
+            return m_maxProgressToThrow;
         }
 
         public Vector3 CalcThrowLocation(ObjectGenerator.Pos pos, float relativeProgress) {

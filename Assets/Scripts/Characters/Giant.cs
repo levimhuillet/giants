@@ -32,6 +32,7 @@ namespace Giants {
         private int m_playerCatchDistance;
         private float m_moveInwardRatio;
         private float m_gapOffset;
+        private float m_stunTimer = -1;
 
         private void OnEnable() {
             m_animator = this.GetComponent<Animator>();
@@ -71,6 +72,15 @@ namespace Giants {
         private void Update() {
             if (GameManager.instance.IsPaused) {
                 return;
+            }
+
+            if (m_stunTimer >= 0) {
+                m_stunTimer -= Time.deltaTime;
+                return;
+            }
+            else {
+                m_animator.SetBool("isStunned", false);
+                m_stunTimer = -1;
             }
 
             // move closer to camera
@@ -116,11 +126,14 @@ namespace Giants {
             return m_track;
         }
 
-        public void KnockBack(float knockBackDistance) {
+        public void KnockBack(float knockBackDistance, float stunTime) {
             Vector3 currPos = this.transform.position;
             Vector3 newPos = currPos - m_track.MoveVector.normalized * knockBackDistance;
 
             this.transform.position = newPos;
+
+            m_animator.SetBool("isStunned", true);
+            m_stunTimer = stunTime;
         }
     }
 }
